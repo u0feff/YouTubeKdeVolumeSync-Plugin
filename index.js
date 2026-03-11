@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         YouTube KDE volume sync
-// @description  Fixes desync between "Plasma integration" and youtube player volume changes
+// @description  Fixes volume desync between KDE Connect via Plasma integration and youtube player
 // @match        *://*.youtube.com/*
 // @grant        none
 // ==/UserScript==
