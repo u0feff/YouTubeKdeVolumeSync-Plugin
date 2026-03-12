@@ -34,6 +34,14 @@
       console.log(`[${APP_NAME}] ${message}\n`, ...args);
     }
 
+    /**
+     * @param {number} volume
+     * @returns {number}
+     */
+    function normalizeVolume(volume) {
+      return Number(volume.toFixed(2));
+    }
+
     function recalculateVolumeMaps() {
       const currentVolume = player.getVolume();
       let tempVolume;
@@ -76,6 +84,7 @@
 
     /**
      * @param {number} playerVolume
+     * @returns {number}
      */
     function calculateVideoVolume(playerVolume) {
       return playerToVideoVolumeMap[playerVolume];
@@ -83,9 +92,10 @@
 
     /**
      * @param {number} volume
+     * @returns {number?}
      */
     function tryCalculatePlayerVolume(volume) {
-      const normalizedVolume = Number(volume.toFixed(2));
+      const normalizedVolume = normalizeVolume(volume);
 
       if (normalizedVolume in videoToPlayerVolumeMap)
         return videoToPlayerVolumeMap[normalizedVolume];
@@ -96,12 +106,18 @@
       return null;
     }
 
+    /**
+     * @returns {number}
+     */
     function getVolume() {
       return originalVideoVolumeProperty.get.call(this);
     }
 
+    /**
+     * @param {number} volume
+     */
     function setVolume(volume) {
-      const normalizedVolume = Number(volume.toFixed(2));
+      const normalizedVolume = normalizeVolume(volume);
 
       if (
         !(normalizedVolume in videoToPlayerVolumeMap) &&
@@ -143,6 +159,9 @@
       originalVideoVolumeProperty.set.call(this, volume);
     }
 
+    /**
+     * @returns {number}
+     */
     function getPlayerVolume() {
       return player.getVolume();
     }
